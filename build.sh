@@ -8,7 +8,6 @@ pip install -r requirements.txt
 # Download NLTK data
 python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords')"
 
-# Initialize database
-python init_db.py
+# Database will be initialized automatically on app startup
 
 echo "Build completed successfully!" 

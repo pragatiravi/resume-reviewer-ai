@@ -23,6 +23,11 @@ def create_app(config_class=Config):
     # Create uploads directory if it doesn't exist
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     
+    # Initialize database if it doesn't exist
+    with app.app_context():
+        db.create_all()
+        print('Database tables created or confirmed to exist.')
+    
     # Error handlers
     @app.errorhandler(404)
     def page_not_found(e):
