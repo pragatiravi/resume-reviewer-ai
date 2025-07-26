@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block title %}About - Resume Reviewer AI{% endblock %}
+
+{% block content %}
+<div class="row mb-5">
+    <div class="col-12">
+        <h1 class="display-5 mb-4">About Resume Reviewer AI</h1>
+        <p class="lead">
+            Resume Reviewer AI is a powerful tool designed to help job seekers optimize their resumes for specific job roles.
+            Our AI-powered analysis provides personalized feedback to increase your chances of landing interviews.
+        </p>
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-md-6 mb-4 mb-md-0">
+        <div class="card shadow h-100">
+            <div class="card-header bg-primary text-white">
+                <h2 class="h5 mb-0">Our Mission</h2>
+            </div>
+            <div class="card-body">
+                <p>
+                    Our mission is to help job seekers create more effective resumes by providing data-driven feedback and insights.
+                    We believe that everyone deserves access to tools that can help them present their skills and experience in the best possible light.
+                </p>
+                <p>
+                    By analyzing resumes against industry standards and job-specific requirements, we aim to level the playing field
+                    and help candidates stand out in competitive job markets.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card shadow h-100">
+            <div class="card-header bg-primary text-white">
+                <h2 class="h5 mb-0">How It Works</h2>
+            </div>
+            <div class="card-body">
+                <p>
+                    Resume Reviewer AI uses advanced natural language processing and machine learning techniques to analyze your resume.
+                    Here's how our analysis works:
+                </p>
+                <ol>
+                    <li>We extract text from your uploaded PDF resume</li>
+                    <li>Our algorithms identify different sections of your resume</li>
+                    <li>We match your resume content against job-specific keywords</li>
+                    <li>We check for ATS compatibility and formatting issues</li>
+                    <li>Our system generates personalized feedback and suggestions</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h2 class="h5 mb-0">Key Features</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-search fa-2x text-primary"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h3 class="h5">Keyword Analysis</h3>
+                                <p>We match your resume against job-specific keywords to ensure you're highlighting the right skills.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-robot fa-2x text-primary"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h3 class="h5">ATS Compatibility</h3>
+                                <p>We check if your resume will pass through Applicant Tracking Systems used by employers.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-file-alt fa-2x text-primary"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h3 class="h5">Section Analysis</h3>
+                                <p>We analyze each section of your resume to ensure proper structure and content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-lightbulb fa-2x text-primary"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h3 class="h5">Personalized Suggestions</h3>
+                                <p>We provide actionable suggestions to improve your resume for specific job roles.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-chart-line fa-2x text-primary"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h3 class="h5">Resume Scoring</h3>
+                                <p>We score your resume based on multiple factors to help you track improvements.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-download fa-2x text-primary"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h3 class="h5">Exportable Feedback</h3>
+                                <p>You can export your feedback report to reference as you improve your resume.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 text-center">
+        <h2 class="h4 mb-4">Ready to optimize your resume?</h2>
+        <a href="{{ url_for('resume.upload') }}" class="btn btn-primary btn-lg">
+            <i class="fas fa-upload me-2"></i>Upload Your Resume
+        </a>
+    </div>
+</div>
+{% endblock %} 

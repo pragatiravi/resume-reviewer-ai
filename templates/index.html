@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %}Resume Reviewer AI - Get Smart Feedback on Your Resume{% endblock %}
+
+{% block content %}
+<div class="row align-items-center py-5">
+    <div class="col-lg-6">
+        <h1 class="display-4 fw-bold mb-4">Optimize Your Resume with AI</h1>
+        <p class="lead mb-4">
+            Upload your resume and get instant, AI-powered feedback to improve your chances of landing that dream job.
+            Our system analyzes your resume for keyword matches, ATS compatibility, and structure to provide personalized recommendations.
+        </p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <a href="{{ url_for('resume.upload') }}" class="btn btn-primary btn-lg px-4 me-md-2">
+                <i class="fas fa-upload me-2"></i>Upload Resume
+            </a>
+            <a href="{{ url_for('main.about') }}" class="btn btn-outline-secondary btn-lg px-4">
+                Learn More
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-6 d-none d-lg-block">
+        <img src="{{ url_for('static', filename='assets/resume-illustration.svg') }}" alt="Resume Illustration" class="img-fluid">
+    </div>
+</div>
+
+<hr class="my-5">
+
+<div class="row text-center">
+    <div class="col-12">
+        <h2 class="mb-4">How It Works</h2>
+    </div>
+</div>
+
+<div class="row g-4 py-3">
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <div class="feature-icon bg-primary bg-gradient text-white rounded-circle mb-3 mx-auto" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-upload fa-2x"></i>
+                </div>
+                <h3 class="card-title h5">1. Upload Your Resume</h3>
+                <p class="card-text">Upload your resume in PDF format and select the job role you're applying for.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <div class="feature-icon bg-primary bg-gradient text-white rounded-circle mb-3 mx-auto" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-robot fa-2x"></i>
+                </div>
+                <h3 class="card-title h5">2. AI Analysis</h3>
+                <p class="card-text">Our AI analyzes your resume for keywords, structure, ATS compatibility, and more.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <div class="feature-icon bg-primary bg-gradient text-white rounded-circle mb-3 mx-auto" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-chart-line fa-2x"></i>
+                </div>
+                <h3 class="card-title h5">3. Get Detailed Feedback</h3>
+                <p class="card-text">Receive a comprehensive report with actionable suggestions to improve your resume.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="my-5">
+
+<div class="row align-items-center py-3">
+    <div class="col-md-6">
+        <h2 class="mb-3">Why Use Resume Reviewer AI?</h2>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                <strong>ATS Compatibility Check</strong> - Ensure your resume passes through Applicant Tracking Systems
+            </li>
+            <li class="list-group-item">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                <strong>Keyword Analysis</strong> - Match your skills to job requirements
+            </li>
+            <li class="list-group-item">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                <strong>Section-by-Section Feedback</strong> - Improve every part of your resume
+            </li>
+            <li class="list-group-item">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                <strong>Actionable Suggestions</strong> - Get specific recommendations for improvement
+            </li>
+            <li class="list-group-item">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                <strong>Save Your History</strong> - Track improvements over time
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-6 mt-4 mt-md-0">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3 class="h5 mb-0">Ready to optimize your resume?</h3>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    Don't miss out on job opportunities because of an unoptimized resume. 
+                    Our AI-powered tool will help you stand out from the competition.
+                </p>
+                <div class="d-grid">
+                    <a href="{{ url_for('resume.upload') }}" class="btn btn-primary">
+                        <i class="fas fa-upload me-2"></i>Upload Your Resume Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,257 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Resume - Resume Reviewer AI{% endblock %}
+
+{% block extra_css %}
+<style>
+    .drop-zone {
+        max-width: 100%;
+        height: 200px;
+        padding: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-weight: 500;
+        font-size: 20px;
+        cursor: pointer;
+        color: #cccccc;
+        border: 4px dashed #009578;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .drop-zone--over {
+        border-style: solid;
+        background-color: rgba(0, 149, 120, 0.1);
+    }
+
+    .drop-zone__input {
+        display: none;
+    }
+
+    .drop-zone__thumb {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #cccccc;
+        background-size: cover;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .drop-zone__thumb::after {
+        content: attr(data-label);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 5px 0;
+        color: #ffffff;
+        background: rgba(0, 0, 0, 0.75);
+        font-size: 14px;
+        text-align: center;
+    }
+    
+    /* Fallback file input for better compatibility */
+    .fallback-file-input {
+        margin-top: 10px;
+        display: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h2 class="h4 mb-0">Upload Your Resume</h2>
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('resume.upload') }}" method="POST" enctype="multipart/form-data" id="resumeForm">
+                    <div class="mb-4">
+                        <label for="job_role" class="form-label">Select Job Role</label>
+                        <select class="form-select" id="job_role" name="job_role" required>
+                            <option value="" selected disabled>Choose a job role...</option>
+                            {% for role in job_roles %}
+                            <option value="{{ role }}">{{ role }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="form-text">
+                            Select the job role you're applying for to get tailored feedback.
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">Upload Resume (PDF only)</label>
+                        <!-- Drag and drop zone -->
+                        <div class="drop-zone">
+                            <span class="drop-zone__prompt">
+                                <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i><br>
+                                Drop file here or click to upload
+                            </span>
+                            <input type="file" name="resume" class="drop-zone__input" accept=".pdf" required>
+                        </div>
+                        
+                        <!-- Fallback file input for better compatibility -->
+                        <div class="fallback-file-input">
+                            <label for="resume-fallback" class="form-label">Or select a file:</label>
+                            <input type="file" class="form-control" id="resume-fallback" name="resume" accept=".pdf">
+                        </div>
+                        
+                        <div class="form-text">
+                            Maximum file size: 16MB. Only PDF files are accepted.
+                        </div>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-search me-2"></i>Analyze Resume
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="mt-3 text-center">
+                    <p class="text-muted">Having trouble with the upload? <a href="{{ url_for('resume.simple_upload') }}">Try the simple upload form</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4 shadow">
+            <div class="card-header bg-light">
+                <h3 class="h5 mb-0">Tips for Best Results</h3>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Use a clean, simple format without tables or complex formatting
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Ensure your PDF is text-based, not scanned images
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Include clear section headings (Experience, Education, Skills, etc.)
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Make sure contact information is in the header section
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Check if drag and drop is supported
+    function isAdvancedUpload() {
+        const div = document.createElement('div');
+        return (('draggable' in div) || ('ondragstart' in div && 'ondrop' in div)) && 'FormData' in window && 'FileReader' in window;
+    }
+    
+    // Show fallback if needed
+    if (!isAdvancedUpload()) {
+        document.querySelector('.fallback-file-input').style.display = 'block';
+        document.querySelector('.drop-zone').style.display = 'none';
+    }
+
+    document.querySelectorAll(".drop-zone").forEach(dropZone => {
+        const input = dropZone.querySelector(".drop-zone__input");
+
+        dropZone.addEventListener("click", e => {
+            input.click();
+        });
+
+        input.addEventListener("change", e => {
+            if (input.files.length) {
+                updateThumbnail(dropZone, input.files[0]);
+                
+                // Also update the fallback input
+                const fallbackInput = document.getElementById('resume-fallback');
+                if (fallbackInput) {
+                    // Create a new DataTransfer object
+                    const dataTransfer = new DataTransfer();
+                    // Add the file to the DataTransfer object
+                    dataTransfer.items.add(input.files[0]);
+                    // Set the files property of the fallback input
+                    fallbackInput.files = dataTransfer.files;
+                }
+            }
+        });
+
+        dropZone.addEventListener("dragover", e => {
+            e.preventDefault();
+            dropZone.classList.add("drop-zone--over");
+        });
+
+        ["dragleave", "dragend"].forEach(type => {
+            dropZone.addEventListener(type, e => {
+                dropZone.classList.remove("drop-zone--over");
+            });
+        });
+
+        dropZone.addEventListener("drop", e => {
+            e.preventDefault();
+
+            if (e.dataTransfer.files.length) {
+                input.files = e.dataTransfer.files;
+                updateThumbnail(dropZone, e.dataTransfer.files[0]);
+                
+                // Also update the fallback input
+                const fallbackInput = document.getElementById('resume-fallback');
+                if (fallbackInput) {
+                    try {
+                        // Create a new DataTransfer object
+                        const dataTransfer = new DataTransfer();
+                        // Add the file to the DataTransfer object
+                        dataTransfer.items.add(e.dataTransfer.files[0]);
+                        // Set the files property of the fallback input
+                        fallbackInput.files = dataTransfer.files;
+                    } catch (err) {
+                        console.error('Error copying file to fallback input:', err);
+                    }
+                }
+            }
+
+            dropZone.classList.remove("drop-zone--over");
+        });
+    });
+
+    function updateThumbnail(dropZone, file) {
+        let thumbnailElement = dropZone.querySelector(".drop-zone__thumb");
+
+        // First time - remove the prompt
+        if (!thumbnailElement) {
+            thumbnailElement = document.createElement("div");
+            thumbnailElement.classList.add("drop-zone__thumb");
+            dropZone.innerHTML = "";
+            dropZone.appendChild(thumbnailElement);
+        }
+
+        // Show thumbnail for PDF file
+        thumbnailElement.dataset.label = file.name;
+        
+        // Show PDF icon
+        thumbnailElement.style.backgroundImage = null;
+        thumbnailElement.innerHTML = '<i class="fas fa-file-pdf fa-4x text-danger"></i>';
+    }
+    
+    // Ensure form is properly submitted
+    document.getElementById('resumeForm').addEventListener('submit', function(e) {
+        const fileInput = document.querySelector('input[name="resume"]');
+        if (!fileInput.files || fileInput.files.length === 0) {
+            e.preventDefault();
+            alert('Please select a PDF file to upload');
+        }
+    });
+</script>
+{% endblock %} 

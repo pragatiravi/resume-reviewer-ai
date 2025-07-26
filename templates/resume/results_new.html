@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+
+{% block title %}Resume Analysis Results - Resume Reviewer AI{% endblock %}
+
+{% block extra_css %}
+<style>
+    .score-circle {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        font-weight: bold;
+        color: white;
+        margin: 0 auto;
+    }
+    
+    .score-excellent {
+        background: linear-gradient(to bottom right, #28a745, #20c997);
+    }
+    
+    .score-good {
+        background: linear-gradient(to bottom right, #17a2b8, #007bff);
+    }
+    
+    .score-average {
+        background: linear-gradient(to bottom right, #fd7e14, #ffc107);
+    }
+    
+    .score-poor {
+        background: linear-gradient(to bottom right, #dc3545, #f86c6b);
+    }
+    
+    .keyword-table {
+        font-size: 0.9rem;
+    }
+    
+    .importance-high {
+        color: #dc3545;
+        font-weight: bold;
+    }
+    
+    .importance-medium {
+        color: #fd7e14;
+    }
+    
+    .importance-low {
+        color: #6c757d;
+    }
+    
+    .ats-tag {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        font-weight: bold;
+        font-size: 0.875rem;
+    }
+    
+    .ats-pass {
+        background-color: #d4edda;
+        color: #155724;
+    }
+    
+    .ats-fail {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="h3">Resume Analysis Results</h1>
+        <p class="text-muted">
+            Analysis for <strong>{{ resume.original_filename }}</strong> 
+            for <strong>{{ job_role }}</strong> position
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Left Column - Score and Summary -->
+    <div class="col-lg-4 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-header bg-primary text-white">
+                <h2 class="h5 mb-0">Overall Score</h2>
+            </div>
+            <div class="card-body text-center">
+                {% if feedback.overall_score >= 80 %}
+                    <div class="score-circle score-excellent mb-3">{{ feedback.overall_score }}</div>
+                    <h3 class="h5">Excellent!</h3>
+                {% elif feedback.overall_score >= 60 %}
+                    <div class="score-circle score-good mb-3">{{ feedback.overall_score }}</div>
+                    <h3 class="h5">Good</h3>
+                {% elif feedback.overall_score >= 40 %}
+                    <div class="score-circle score-average mb-3">{{ feedback.overall_score }}</div>
+                    <h3 class="h5">Average</h3>
+                {% else %}
+                    <div class="score-circle score-poor mb-3">{{ feedback.overall_score }}</div>
+                    <h3 class="h5">Needs Improvement</h3>
+                {% endif %}
+                
+                <div class="mt-3">
+                    <span class="ats-tag {% if feedback.ats_compatible %}ats-pass{% else %}ats-fail{% endif %}">
+                        <i class="fas {% if feedback.ats_compatible %}fa-check-circle{% else %}fa-times-circle{% endif %} me-1"></i>
+                        ATS {% if feedback.ats_compatible %}Compatible{% else %}Not Compatible{% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <p class="mb-0"><strong>Summary:</strong> {{ feedback.summary }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Middle Column - Section Feedback -->
+    <div class="col-lg-4 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-header bg-primary text-white">
+                <h2 class="h5 mb-0">Section Feedback</h2>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                    {% if feedback.section_feedback %}
+                        {% for section, section_feedback in feedback.section_feedback.items() %}
+                        <li class="list-group-item">
+                            <h3 class="h6 mb-1">{{ section|capitalize }}</h3>
+                            <p class="mb-0 small">{{ section_feedback }}</p>
+                        </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item">
+                            <p class="mb-0 small">No section feedback available.</p>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Right Column - Suggestions -->
+    <div class="col-lg-4 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-header bg-primary text-white">
+                <h2 class="h5 mb-0">Suggestions</h2>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                    {% if feedback.suggestions %}
+                        {% for suggestion in feedback.suggestions %}
+                        <li class="list-group-item">
+                            <i class="fas fa-lightbulb text-warning me-2"></i>
+                            {{ suggestion }}
+                        </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item">
+                            <p class="mb-0">No suggestions available.</p>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Keyword Analysis -->
+    <div class="col-12 mb-4">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h2 class="h5 mb-0">Keyword Analysis</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-4 mb-md-0">
+                        <h3 class="h6 mb-3">Matched Keywords ({{ feedback.keyword_matches.matched|default([])|length }})</h3>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-striped keyword-table">
+                                <thead>
+                                    <tr>
+                                        <th>Keyword</th>
+                                        <th>Importance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if feedback.keyword_matches and feedback.keyword_matches.matched %}
+                                        {% for match in feedback.keyword_matches.matched %}
+                                        <tr>
+                                            <td>{{ match.keyword }}</td>
+                                            <td>
+                                                <span class="importance-{{ match.importance }}">
+                                                    {{ match.importance|capitalize }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="2" class="text-center">No matched keywords.</td>
+                                        </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <h3 class="h6 mb-3">Missing Keywords ({{ feedback.keyword_matches.missing|default([])|length }})</h3>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-striped keyword-table">
+                                <thead>
+                                    <tr>
+                                        <th>Keyword</th>
+                                        <th>Importance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if feedback.keyword_matches and feedback.keyword_matches.missing %}
+                                        {% for missing in feedback.keyword_matches.missing %}
+                                        <tr>
+                                            <td>{{ missing.keyword }}</td>
+                                            <td>
+                                                <span class="importance-{{ missing.importance }}">
+                                                    {{ missing.importance|capitalize }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="2" class="text-center">No missing keywords.</td>
+                                        </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-3">
+                    <div class="progress" style="height: 25px;">
+                        <div class="progress-bar bg-success" role="progressbar" 
+                             style="width: {{ feedback.keyword_matches.match_percentage|default(0) }}%;" 
+                             aria-valuenow="{{ feedback.keyword_matches.match_percentage|default(0) }}" 
+                             aria-valuemin="0" aria-valuemax="100">
+                            {{ feedback.keyword_matches.match_percentage|default(0) }}% Match
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="card shadow">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <a href="{{ url_for('resume.upload') }}" class="btn btn-outline-primary">
+                            <i class="fas fa-upload me-2"></i>Upload Another Resume
+                        </a>
+                        {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('resume.history') }}" class="btn btn-outline-secondary ms-2">
+                            <i class="fas fa-history me-2"></i>View History
+                        </a>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <a href="{{ url_for('resume.export_feedback', resume_id=resume.id) }}" class="btn btn-success">
+                            <i class="fas fa-download me-2"></i>Export Feedback
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
