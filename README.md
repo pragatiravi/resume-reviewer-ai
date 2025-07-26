@@ -85,14 +85,6 @@ python app.py
 
 ---
 
-## 🖼 Screenshot
-
-> _(Add an actual screenshot below if you’d like to showcase the UI)_
-
-![Resume Reviewer AI Screenshot](https://via.placeholder.com/1000x600.png?text=Upload+a+screenshot+of+your+app+here)
-
----
-
 ## 💡 Future Enhancements
 
 - 🔐 User login + saved resume history  
@@ -117,12 +109,4 @@ python app.py
 MIT License — free for personal and educational use
 
 ---
-
-## 🙌 Author & Credits
-
-Made with ❤️ by [Pragati Ravi](https://github.com/pragatiravi)  
-Guided by curiosity, built with AI.
-
----
-
 > 💬 Found this helpful? Give it a ⭐️ on GitHub, share it with friends, or fork it to build your own version!
