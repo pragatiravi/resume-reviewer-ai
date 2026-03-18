@@ -2,7 +2,7 @@
 
 An intelligent, AI-powered resume feedback platform built with Flask — designed to help job seekers optimize their resumes for specific roles, ATS systems, and recruiter expectations.
 
-🔗 **Live Demo**: [Resume Reviewer AI on Vercel]([https://resume-reviewer-ai-eidt.onrender.com](https://resume-reviewer-ai-gamma.vercel.app/))
+🔗 **Live Demo**: [Resume Reviewer AI on Vercel]([https://resume-reviewer-ai-gamma.vercel.app/](https://resume-reviewer-ai-gamma.vercel.app/))
 
 ---
 
