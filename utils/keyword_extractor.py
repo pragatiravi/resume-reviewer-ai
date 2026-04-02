@@ -17,18 +17,19 @@ else:
 # Download required NLTK data if not present
 try:
     nltk.data.find('tokenizers/punkt')
-except LookupError:
-    nltk.download('punkt', download_dir=nltk_data_dir)
+except (LookupError, OSError):
+    try:
+        nltk.download('punkt', download_dir=nltk_data_dir, quiet=True)
+    except Exception as e:
+        print(f"Error downloading punkt: {e}")
     
 try:
     nltk.data.find('corpora/stopwords')
-except LookupError:
-    nltk.download('stopwords', download_dir=nltk_data_dir)
-
-try:
-    nltk.data.find('tokenizers/punkt_tab')
-except LookupError:
-    nltk.download('punkt_tab', download_dir=nltk_data_dir)
+except (LookupError, OSError):
+    try:
+        nltk.download('stopwords', download_dir=nltk_data_dir, quiet=True)
+    except Exception as e:
+        print(f"Error downloading stopwords: {e}")
 
 def extract_keywords(text, top_n=30):
     """

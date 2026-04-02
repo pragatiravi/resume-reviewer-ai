@@ -16,16 +16,20 @@ class Resume(db.Model):
     # Foreign key to User
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     
+    # Store parsed text to avoid reliance on ephemeral local storage
+    resume_text = db.Column(db.Text, nullable=True)
+    
     # Relationship with Feedback model
     feedback = db.relationship('Feedback', backref='resume', uselist=False, cascade='all, delete-orphan')
     
-    def __init__(self, filename, original_filename, file_path, job_role, user_id=None, file_size=None):
+    def __init__(self, filename, original_filename, file_path, job_role, user_id=None, file_size=None, resume_text=None):
         self.filename = filename
         self.original_filename = original_filename
         self.file_path = file_path
         self.job_role = job_role
         self.user_id = user_id
         self.file_size = file_size
+        self.resume_text = resume_text
     
     def __repr__(self):
         return f'<Resume {self.original_filename} for {self.job_role}>'
@@ -45,4 +49,4 @@ class Resume(db.Model):
                 return True
         except Exception as e:
             print(f"Error deleting file: {e}")
-        return False 
+        return False

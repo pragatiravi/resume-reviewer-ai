@@ -56,20 +56,21 @@ def upload():
             
             # Create resume record
             user_id = current_user.id if current_user.is_authenticated else None
-            resume = Resume(
+            resume_record = Resume(
                 filename=unique_filename,
                 original_filename=original_filename,
                 file_path=file_path,
                 job_role=job_role,
                 user_id=user_id,
-                file_size=file_size
+                file_size=file_size,
+                resume_text=extract_text_from_pdf(file_path)
             )
             
-            db.session.add(resume)
+            db.session.add(resume_record)
             db.session.commit()
             
             # Redirect to analysis page
-            return redirect(url_for('resume.analyze', resume_id=resume.id))
+            return redirect(url_for('resume.analyze', resume_id=resume_record.id))
             
         else:
             flash('Only PDF files are allowed')
@@ -117,20 +118,21 @@ def simple_upload():
             
             # Create resume record
             user_id = current_user.id if current_user.is_authenticated else None
-            resume = Resume(
+            resume_record = Resume(
                 filename=unique_filename,
                 original_filename=original_filename,
                 file_path=file_path,
                 job_role=job_role,
                 user_id=user_id,
-                file_size=file_size
+                file_size=file_size,
+                resume_text=extract_text_from_pdf(file_path)
             )
             
-            db.session.add(resume)
+            db.session.add(resume_record)
             db.session.commit()
             
             # Redirect to analysis page
-            return redirect(url_for('resume.analyze', resume_id=resume.id))
+            return redirect(url_for('resume.analyze', resume_id=resume_record.id))
             
         else:
             flash('Only PDF files are allowed')
@@ -144,24 +146,29 @@ def simple_upload():
 def analyze(resume_id):
     """Analyze uploaded resume"""
     # Get resume record
-    resume = Resume.query.get_or_404(resume_id)
+    resume_obj = Resume.query.get_or_404(resume_id)
     
     # Check if feedback already exists
-    if resume.feedback:
+    if resume_obj.feedback:
         return redirect(url_for('resume.results', resume_id=resume_id))
     
-    # Extract text from PDF
-    resume_text = extract_text_from_pdf(resume.file_path)
+    # Use stored text (serverless safe)
+    resume_text = resume_obj.resume_text
     
     if not resume_text:
-        flash('Could not extract text from the PDF. Please try again with a different file.')
-        return redirect(url_for('resume.upload'))
+        # Fallback in case resume_text was lost or not extracted
+        if os.path.exists(resume_obj.file_path):
+            resume_text = extract_text_from_pdf(resume_obj.file_path)
+        
+        if not resume_text:
+            flash('Resume content missing. Please try uploading again.')
+            return redirect(url_for('resume.upload'))
     
     # Parse resume sections
     sections = parse_resume_sections(resume_text)
     
     # Get job role keywords
-    job_role = resume.job_role
+    job_role = resume_obj.job_role
     job_keywords = current_app.config['JOB_ROLE_KEYWORDS'].get(
         job_role, current_app.config['DEFAULT_KEYWORDS']
     )
