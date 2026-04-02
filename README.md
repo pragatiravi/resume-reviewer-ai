@@ -1,5 +1,8 @@
 # Resume Reviewer AI 🚀
 
+[![Deploy with Vercel](https://vercel.com/button)](https://resume-reviewer-ai-six.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-blue?style=for-the-badge&logo=vercel)](https://resume-reviewer-ai-six.vercel.app)
+
 Resume Reviewer AI is a professional Flash-based web application designed to help job seekers optimize their resumes. Using Natural Language Processing (NLP) and intelligent analysis, the app provides instant feedback on keyword relevance, ATS (Applicant Tracking System) compatibility, and structural completeness based on specific target job roles.
 
 ## ✨ Features
