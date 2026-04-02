@@ -8,11 +8,22 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev-key-for-development-only'
     
     # Database configuration
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///resume_reviewer.db'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    if not SQLALCHEMY_DATABASE_URI:
+        if os.environ.get('VERCEL') == '1':
+            SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/resume_reviewer.db'
+        else:
+            db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'resume_reviewer.db')
+            SQLALCHEMY_DATABASE_URI = f'sqlite:///{db_path}'
+            
+    UPLOAD_FOLDER = os.environ.get('UPLOAD_FOLDER')
+    if not UPLOAD_FOLDER:
+        if os.environ.get('VERCEL') == '1':
+            UPLOAD_FOLDER = '/tmp/uploads'
+        else:
+            UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
+        
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    
-    # File upload configuration
-    UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max upload size
     ALLOWED_EXTENSIONS = {'pdf'}
     

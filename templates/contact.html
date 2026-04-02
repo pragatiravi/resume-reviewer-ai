@@ -3,43 +3,46 @@
 {% block title %}Contact Us - Resume Reviewer AI{% endblock %}
 
 {% block content %}
-<div class="row mb-5">
-    <div class="col-12">
-        <h1 class="display-5 mb-4">Contact Us</h1>
-        <p class="lead">
+<div class="row mb-5 text-center">
+    <div class="col-12 py-4">
+        <h1 class="display-4 fw-bolder mb-3">Get in <span class="text-primary">Touch</span></h1>
+        <p class="lead text-muted mx-auto" style="max-width: 600px; font-size: 1.25rem;">
             Have questions or feedback about Resume Reviewer AI? We'd love to hear from you!
-            Fill out the form below and we'll get back to you as soon as possible.
+            Drop us a message and our team will get back to you across the wire.
         </p>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-6 mb-4 mb-md-0">
-        <div class="card shadow h-100">
-            <div class="card-header bg-primary text-white">
-                <h2 class="h5 mb-0">Send Us a Message</h2>
+<div class="row g-4 mb-5">
+    <div class="col-md-7 mb-4 mb-md-0">
+        <div class="card h-100 border-0 p-2" style="background: var(--bg-card); box-shadow: var(--shadow-soft);">
+            <div class="card-header bg-transparent border-bottom border-light pb-3 pt-4">
+                <h2 class="h4 fw-bold mb-0 text-dark"><i class="fas fa-paper-plane me-2 text-primary"></i> Send a Message</h2>
             </div>
-            <div class="card-body">
+            <div class="card-body p-4">
                 <form>
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" required>
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label for="name" class="form-label text-muted fw-semibold">Name</label>
+                            <input type="text" class="form-control form-control-lg bg-white border-light text-dark shadow-sm" id="name" placeholder="John Doe" required>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label for="email" class="form-label text-muted fw-semibold">Email Address</label>
+                            <input type="email" class="form-control form-control-lg bg-white border-light text-dark shadow-sm" id="email" placeholder="john@example.com" required>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="email" required>
+                    <div class="mb-4">
+                        <label for="subject" class="form-label text-muted fw-semibold">Subject</label>
+                        <input type="text" class="form-control form-control-lg bg-white border-light text-dark shadow-sm" id="subject" placeholder="How can we help?" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="subject" class="form-label">Subject</label>
-                        <input type="text" class="form-control" id="subject" required>
+                    <div class="mb-4">
+                        <label for="message" class="form-label text-muted fw-semibold">Message</label>
+                        <textarea class="form-control bg-white border-light text-dark shadow-sm" id="message" rows="6" placeholder="Write your message here..." required></textarea>
                     </div>
-                    <div class="mb-3">
-                        <label for="message" class="form-label">Message</label>
-                        <textarea class="form-control" id="message" rows="5" required></textarea>
-                    </div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-paper-plane me-2"></i>Send Message
+                    <div class="d-grid mt-2">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-lg">
+                            <i class="fas fa-paper-plane me-2"></i> Send Message
                         </button>
                     </div>
                 </form>
@@ -47,55 +50,54 @@
         </div>
     </div>
     
-    <div class="col-md-6">
-        <div class="card shadow h-100">
-            <div class="card-header bg-primary text-white">
-                <h2 class="h5 mb-0">Contact Information</h2>
+    <div class="col-md-5">
+        <div class="card h-100 border-0 p-2" style="background: linear-gradient(145deg, #ffffff, #f5f5f4); border: 1px solid var(--border-color);">
+            <div class="card-header bg-transparent border-bottom border-light pb-3 pt-4">
+                <h2 class="h4 fw-bold mb-0 text-dark"><i class="fas fa-info-circle me-2 text-success"></i> Contact Info</h2>
             </div>
-            <div class="card-body">
-                <div class="d-flex mb-4">
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-envelope fa-2x text-primary"></i>
+            <div class="card-body p-4">
+                <div class="d-flex mb-4 align-items-center p-3 rounded-4 shadow-sm bg-white">
+                    <div class="flex-shrink-0 bg-primary bg-opacity-10 p-3 rounded-circle me-3">
+                        <i class="fas fa-envelope fa-xl text-primary"></i>
                     </div>
-                    <div class="flex-grow-1 ms-3">
-                        <h3 class="h5">Email</h3>
-                        <p><a href="mailto:support@resumereviewer.ai">support@resumereviewer.ai</a></p>
-                    </div>
-                </div>
-                
-                <div class="d-flex mb-4">
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-phone fa-2x text-primary"></i>
-                    </div>
-                    <div class="flex-grow-1 ms-3">
-                        <h3 class="h5">Phone</h3>
-                        <p>(555) 123-4567</p>
+                    <div class="flex-grow-1">
+                        <h3 class="h6 text-muted mb-1 text-uppercase tracking-wider font-semibold">Email</h3>
+                        <p class="mb-0 fw-medium"><a href="mailto:support@resumereviewer.com" class="text-dark text-decoration-none">support@resumereviewer.com</a></p>
                     </div>
                 </div>
                 
-                <div class="d-flex mb-4">
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-map-marker-alt fa-2x text-primary"></i>
+                <div class="d-flex mb-4 align-items-center p-3 rounded-4 shadow-sm bg-white">
+                    <div class="flex-shrink-0 bg-success bg-opacity-10 p-3 rounded-circle me-3">
+                        <i class="fas fa-phone fa-xl text-success"></i>
                     </div>
-                    <div class="flex-grow-1 ms-3">
-                        <h3 class="h5">Address</h3>
-                        <p>
+                    <div class="flex-grow-1">
+                        <h3 class="h6 text-muted mb-1 text-uppercase tracking-wider font-semibold">Phone</h3>
+                        <p class="mb-0 fw-medium text-dark">(555) 123-4567</p>
+                    </div>
+                </div>
+                
+                <div class="d-flex mb-4 align-items-center p-3 rounded-4 shadow-sm bg-white">
+                    <div class="flex-shrink-0 bg-warning bg-opacity-10 p-3 rounded-circle me-3">
+                        <i class="fas fa-map-marker-alt fa-xl text-warning"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h3 class="h6 text-muted mb-1 text-uppercase tracking-wider font-semibold">Location</h3>
+                        <p class="mb-0 fw-medium text-dark">
                             123 Resume Street<br>
-                            San Francisco, CA 94105<br>
-                            United States
+                            San Francisco, CA 94105
                         </p>
                     </div>
                 </div>
                 
-                <div class="d-flex">
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-clock fa-2x text-primary"></i>
+                <div class="d-flex align-items-center p-3 rounded-4 shadow-sm bg-white">
+                    <div class="flex-shrink-0 bg-info bg-opacity-10 p-3 rounded-circle me-3">
+                        <i class="fas fa-clock fa-xl text-info"></i>
                     </div>
-                    <div class="flex-grow-1 ms-3">
-                        <h3 class="h5">Business Hours</h3>
-                        <p>
-                            Monday - Friday: 9:00 AM - 5:00 PM<br>
-                            Saturday - Sunday: Closed
+                    <div class="flex-grow-1">
+                        <h3 class="h6 text-muted mb-1 text-uppercase tracking-wider font-semibold">Hours</h3>
+                        <p class="mb-0 fw-medium text-dark">
+                            Mon - Fri: 9:00 AM - 5:00 PM<br>
+                            <span class="text-muted small">Sat - Sun: Closed</span>
                         </p>
                     </div>
                 </div>

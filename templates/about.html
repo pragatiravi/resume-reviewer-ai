@@ -3,46 +3,70 @@
 {% block title %}About - Resume Reviewer AI{% endblock %}
 
 {% block content %}
-<div class="row mb-5">
-    <div class="col-12">
-        <h1 class="display-5 mb-4">About Resume Reviewer AI</h1>
-        <p class="lead">
-            Resume Reviewer AI is a powerful tool designed to help job seekers optimize their resumes for specific job roles.
-            Our AI-powered analysis provides personalized feedback to increase your chances of landing interviews.
+<div class="row mb-5 align-items-center">
+    <div class="col-md-8">
+        <h1 class="display-4 fw-bolder mb-3">About <span class="text-primary">Resume Reviewer AI</span></h1>
+        <p class="lead text-muted" style="font-size: 1.25rem; line-height: 1.8;">
+            We are on a mission to democratize career advancement. Our AI-powered platform provides job seekers with the insights they need to optimize their resumes and land their dream roles.
         </p>
+    </div>
+    <div class="col-md-4 text-center d-none d-md-block">
+        <div class="feature-icon" style="width: 120px; height: 120px;">
+            <i class="fas fa-rocket fa-4x"></i>
+        </div>
     </div>
 </div>
 
-<div class="row mb-5">
-    <div class="col-md-6 mb-4 mb-md-0">
-        <div class="card shadow h-100">
-            <div class="card-header bg-primary text-white">
-                <h2 class="h5 mb-0">Our Mission</h2>
-            </div>
+<div class="row g-4 mb-5">
+    <div class="col-md-6">
+        <div class="card h-100 p-4 shadow-sm border-0" style="background: var(--bg-card);">
             <div class="card-body">
-                <p>
-                    Our mission is to help job seekers create more effective resumes by providing data-driven feedback and insights.
-                    We believe that everyone deserves access to tools that can help them present their skills and experience in the best possible light.
-                </p>
-                <p>
-                    By analyzing resumes against industry standards and job-specific requirements, we aim to level the playing field
-                    and help candidates stand out in competitive job markets.
+                <div class="d-flex align-items-center mb-3">
+                    <div class="feature-icon mb-0 me-3" style="width: 50px; height: 50px; transform: none;">
+                        <i class="fas fa-bullseye fa-lg"></i>
+                    </div>
+                    <h3 class="h4 fw-bold mb-0">Our Mission</h3>
+                </div>
+                <p class="text-muted">
+                    To level the playing field in the job market by giving everyone access to premium resume review services. 
+                    We believe that a great candidate shouldn't be overlooked just because their resume didn't pass an automated filter.
                 </p>
             </div>
         </div>
     </div>
-    
     <div class="col-md-6">
-        <div class="card shadow h-100">
-            <div class="card-header bg-primary text-white">
-                <h2 class="h5 mb-0">How It Works</h2>
-            </div>
+        <div class="card h-100 p-4 shadow-sm border-0" style="background: var(--bg-card);">
             <div class="card-body">
-                <p>
+                <div class="d-flex align-items-center mb-3">
+                    <div class="feature-icon mb-0 me-3" style="width: 50px; height: 50px; background: var(--gradient-success); transform: none;">
+                        <i class="fas fa-eye fa-lg"></i>
+                    </div>
+                    <h3 class="h4 fw-bold mb-0">Our Vision</h3>
+                </div>
+                <p class="text-muted">
+                    A world where talent is recognized instantly and efficiently. We envision our AI becoming the standard 
+                    pre-screening tool that helps candidates present their best professional selves.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="card shadow h-100 p-4 border-0" style="background: rgba(255,255,255,0.02);">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="feature-icon mb-0 me-3" style="width: 50px; height: 50px; transform: none;">
+                        <i class="fas fa-cogs fa-lg"></i>
+                    </div>
+                    <h3 class="h4 fw-bold mb-0">How It Works</h3>
+                </div>
+                <p class="text-muted">
                     Resume Reviewer AI uses advanced natural language processing and machine learning techniques to analyze your resume.
                     Here's how our analysis works:
                 </p>
-                <ol>
+                <ol class="text-muted">
                     <li>We extract text from your uploaded PDF resume</li>
                     <li>Our algorithms identify different sections of your resume</li>
                     <li>We match your resume content against job-specific keywords</li>
@@ -56,11 +80,9 @@
 
 <div class="row mb-5">
     <div class="col-12">
-        <div class="card shadow">
-            <div class="card-header bg-primary text-white">
-                <h2 class="h5 mb-0">Key Features</h2>
-            </div>
+        <div class="card shadow p-4 border-0" style="background: rgba(255,255,255,0.02);">
             <div class="card-body">
+                <h2 class="h4 fw-bold mb-4 text-center">Key Features</h2>
                 <div class="row">
                     <div class="col-md-4 mb-4">
                         <div class="d-flex">
@@ -68,8 +90,8 @@
                                 <i class="fas fa-search fa-2x text-primary"></i>
                             </div>
                             <div class="flex-grow-1 ms-3">
-                                <h3 class="h5">Keyword Analysis</h3>
-                                <p>We match your resume against job-specific keywords to ensure you're highlighting the right skills.</p>
+                                <h3 class="h5 fw-bold">Keyword Analysis</h3>
+                                <p class="text-muted">We match your resume against job-specific keywords to ensure you're highlighting the right skills.</p>
                             </div>
                         </div>
                     </div>
@@ -79,8 +101,8 @@
                                 <i class="fas fa-robot fa-2x text-primary"></i>
                             </div>
                             <div class="flex-grow-1 ms-3">
-                                <h3 class="h5">ATS Compatibility</h3>
-                                <p>We check if your resume will pass through Applicant Tracking Systems used by employers.</p>
+                                <h3 class="h5 fw-bold">ATS Compatibility</h3>
+                                <p class="text-muted">We check if your resume will pass through Applicant Tracking Systems used by employers.</p>
                             </div>
                         </div>
                     </div>
@@ -90,8 +112,8 @@
                                 <i class="fas fa-file-alt fa-2x text-primary"></i>
                             </div>
                             <div class="flex-grow-1 ms-3">
-                                <h3 class="h5">Section Analysis</h3>
-                                <p>We analyze each section of your resume to ensure proper structure and content.</p>
+                                <h3 class="h5 fw-bold">Section Analysis</h3>
+                                <p class="text-muted">We analyze each section of your resume to ensure proper structure and content.</p>
                             </div>
                         </div>
                     </div>
@@ -101,8 +123,8 @@
                                 <i class="fas fa-lightbulb fa-2x text-primary"></i>
                             </div>
                             <div class="flex-grow-1 ms-3">
-                                <h3 class="h5">Personalized Suggestions</h3>
-                                <p>We provide actionable suggestions to improve your resume for specific job roles.</p>
+                                <h3 class="h5 fw-bold">Personalized Suggestions</h3>
+                                <p class="text-muted">We provide actionable suggestions to improve your resume for specific job roles.</p>
                             </div>
                         </div>
                     </div>
@@ -112,8 +134,8 @@
                                 <i class="fas fa-chart-line fa-2x text-primary"></i>
                             </div>
                             <div class="flex-grow-1 ms-3">
-                                <h3 class="h5">Resume Scoring</h3>
-                                <p>We score your resume based on multiple factors to help you track improvements.</p>
+                                <h3 class="h5 fw-bold">Resume Scoring</h3>
+                                <p class="text-muted">We score your resume based on multiple factors to help you track improvements.</p>
                             </div>
                         </div>
                     </div>
@@ -123,8 +145,8 @@
                                 <i class="fas fa-download fa-2x text-primary"></i>
                             </div>
                             <div class="flex-grow-1 ms-3">
-                                <h3 class="h5">Exportable Feedback</h3>
-                                <p>You can export your feedback report to reference as you improve your resume.</p>
+                                <h3 class="h5 fw-bold">Exportable Feedback</h3>
+                                <p class="text-muted">You can export your feedback report to reference as you improve your resume.</p>
                             </div>
                         </div>
                     </div>
@@ -134,12 +156,12 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-12 text-center">
-        <h2 class="h4 mb-4">Ready to optimize your resume?</h2>
-        <a href="{{ url_for('resume.upload') }}" class="btn btn-primary btn-lg">
-            <i class="fas fa-upload me-2"></i>Upload Your Resume
+<div class="row mb-5">
+    <div class="col-12 text-center py-5">
+        <h2 class="display-6 fw-bold mb-4">Ready to perfect your resume?</h2>
+        <a href="{{ url_for('resume.upload') }}" class="btn btn-primary btn-lg px-5 rounded-pill shadow-lg">
+            <i class="fas fa-rocket me-2"></i> Start Your Review
         </a>
     </div>
 </div>
-{% endblock %} 
+{% endblock %}

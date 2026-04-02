@@ -6,7 +6,8 @@ set -o errexit
 pip install -r requirements.txt
 
 # Download NLTK data
-python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords')"
+python -m nltk.downloader punkt stopwords -d /tmp/nltk_data
+export NLTK_DATA=/tmp/nltk_data
 
 # Database will be initialized automatically on app startup
 

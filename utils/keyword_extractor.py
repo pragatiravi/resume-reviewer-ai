@@ -1,19 +1,34 @@
 import re
-import nltk
-from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
+import nltk # pyre-ignore
+from nltk.tokenize import word_tokenize # pyre-ignore
+from nltk.corpus import stopwords # pyre-ignore
 from collections import Counter
 
-# Download required NLTK data
+import os
+
+# Configure NLTK data path for Vercel's read-only environment
+if os.environ.get('VERCEL') == '1':
+    nltk_data_dir = '/tmp/nltk_data'
+    os.makedirs(nltk_data_dir, exist_ok=True)
+    nltk.data.path.append(nltk_data_dir)
+else:
+    nltk_data_dir = None
+
+# Download required NLTK data if not present
 try:
     nltk.data.find('tokenizers/punkt')
 except LookupError:
-    nltk.download('punkt')
-
+    nltk.download('punkt', download_dir=nltk_data_dir)
+    
 try:
     nltk.data.find('corpora/stopwords')
 except LookupError:
-    nltk.download('stopwords')
+    nltk.download('stopwords', download_dir=nltk_data_dir)
+
+try:
+    nltk.data.find('tokenizers/punkt_tab')
+except LookupError:
+    nltk.download('punkt_tab', download_dir=nltk_data_dir)
 
 def extract_keywords(text, top_n=30):
     """
@@ -37,10 +52,10 @@ def extract_keywords(text, top_n=30):
     
     # Remove stopwords
     stop_words = set(stopwords.words('english'))
-    filtered_tokens = [word for word in tokens if word not in stop_words and len(word) > 2]
+    filtered_tokens = [str(word) for word in tokens if word not in stop_words and len(str(word)) > 2] # pyre-ignore
     
     # Count word frequency
-    word_freq = Counter(filtered_tokens)
+    word_freq = Counter(filtered_tokens) # pyre-ignore
     
     # Get top N keywords
     top_keywords = [word for word, _ in word_freq.most_common(top_n)]
@@ -94,7 +109,7 @@ def match_keywords(resume_text, job_keywords):
     match_percentage = (matched_count / total_keywords * 100) if total_keywords > 0 else 0
     
     # Assign importance levels to keywords
-    keyword_importance = {}
+    keyword_importance: dict = {} # pyre-ignore
     for keyword in job_keywords:
         # Determine importance based on position in the list
         # First third are high importance, middle third medium, last third low
@@ -106,12 +121,12 @@ def match_keywords(resume_text, job_keywords):
         else:
             importance = "low"
         
-        keyword_importance[keyword] = importance
+        keyword_importance[str(keyword)] = str(importance) # pyre-ignore
     
     result = {
-        "matched": [{"keyword": kw, "importance": keyword_importance[kw]} for kw in matched],
-        "missing": [{"keyword": kw, "importance": keyword_importance[kw]} for kw in missing],
-        "match_percentage": round(match_percentage, 2)
+        "matched": [{"keyword": kw, "importance": keyword_importance[str(kw)]} for kw in matched],
+        "missing": [{"keyword": kw, "importance": keyword_importance[str(kw)]} for kw in missing],
+        "match_percentage": round(float(match_percentage), 2) if isinstance(match_percentage, (int, float)) else 0 # pyre-ignore
     }
     
     return result 

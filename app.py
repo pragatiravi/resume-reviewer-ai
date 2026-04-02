@@ -7,7 +7,20 @@ from config import Config
 
 def create_app(config_class=Config):
     """Create and configure the Flask application"""
-    app = Flask(__name__)
+    # Define paths relative to this file
+    root_path = os.path.dirname(os.path.abspath(__file__))
+    
+    # Pre-download NLTK data if missing
+    import nltk
+    try:
+        nltk.download('punkt', quiet=True)
+        nltk.download('stopwords', quiet=True)
+    except Exception as e:
+        print(f"NLTK download warning: {e}")
+
+    app = Flask(__name__, 
+                template_folder=os.path.join(root_path, 'templates'),
+                static_folder=os.path.join(root_path, 'static'))
     app.config.from_object(config_class)
     
     # Initialize extensions
